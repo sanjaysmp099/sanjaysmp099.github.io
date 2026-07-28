@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Project Pulse — Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --surface-2: #EFEBE3;
+    --line: #DBD5C9;
+    --text: #17181A;
+    --text-dim: #5B5A55;
+    --amber: #B9721E;
+    --teal: #2F6B6F;
+    --green: #3F7A4C;
+    --radius: 3px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.65; }
+  a{ color:var(--amber); }
+  .wrap{ max-width:760px; margin:0 auto; padding:0 24px; }
+
+  nav{ border-bottom:1px solid var(--line); }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:56px; max-width:760px; }
+  .nav-back{ font-family:var(--mono); font-size:13px; color:var(--text-dim); text-decoration:none; }
+  .nav-back:hover{ color:var(--amber); }
+  .nav-id{ font-family:var(--mono); font-size:13px; color:var(--text-dim); }
+
+  header{ padding:56px 0 32px; border-bottom:1px solid var(--line); }
+  .eyebrow{ font-family:var(--mono); font-size:12px; color:var(--amber); letter-spacing:0.08em; display:block; margin-bottom:12px; }
+  h1{ font-family:var(--display); font-weight:700; font-size:clamp(30px,4.5vw,42px); margin-bottom:16px; }
+  .meta-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px; }
+  .tag{ font-family:var(--mono); font-size:11px; color:var(--text-dim); border:1px solid var(--line); padding:4px 10px; border-radius:100px; }
+  .cta-row{ display:flex; gap:12px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--body); font-weight:500; font-size:14px;
+    padding:11px 20px; border-radius:var(--radius);
+    text-decoration:none; display:inline-block; border:1px solid var(--line);
+  }
+  .btn-primary{ background:var(--amber); color:#fff; border-color:var(--amber); }
+  .btn-ghost{ color:var(--text); }
+
+  article{ padding:48px 0 80px; }
+  article section + section{ margin-top:36px; }
+  h2{ font-family:var(--display); font-weight:600; font-size:20px; margin-bottom:12px; color:var(--teal); }
+  p{ color:var(--text); margin-bottom:12px; max-width:640px; }
+  ul{ padding-left:20px; margin-bottom:12px; }
+  li{ margin-bottom:8px; max-width:600px; }
+  .callout{
+    border-left:3px solid var(--amber); background:var(--surface-2);
+    padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:20px 0;
+    font-size:14px; color:var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="nav-back" href="index.html">← All AI projects</a>
+    <span class="nav-id">CASE STUDY</span>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow">01 — CASE STUDY</span>
+    <h1>AI Project Pulse</h1>
+    <div class="meta-row">
+      <span class="tag">Streamlit</span>
+      <span class="tag">Groq / Llama 3.3 70B</span>
+      <span class="tag">Prompt design</span>
+      <span class="tag">Free-tier deployment</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://your-app-name.streamlit.app" target="_blank" rel="noopener">Launch live demo →</a>
+      <a class="btn btn-ghost" href="https://github.com/your-username/ai-project-pulse" target="_blank" rel="noopener">View source</a>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="wrap">
+
+    <section>
+      <h2>The problem</h2>
+      <p>Most portfolio projects from PM candidates are generic — a to-do app, a basic chatbot. They demonstrate that someone can call an API, but not that they understand how AI projects specifically go off track.</p>
+      <p>I wanted to build something that showed the opposite: that I know the failure modes unique to AI/ML delivery, and can turn that knowledge into a practical tool.</p>
+    </section>
+
+    <section>
+      <h2>The approach</h2>
+      <p>I scoped two focused tools rather than one broad one, both addressing real gaps I've seen in AI project delivery:</p>
+      <ul>
+        <li><strong>Risk & Timeline Assistant</strong> — takes a project description and surfaces AI-specific risks (data labeling delays, open-ended model evaluation cycles, vendor API limits, compliance review time) plus a realistic timeline breakdown with a recommended buffer.</li>
+        <li><strong>Status Report Generator</strong> — takes messy raw notes (Slack threads, standup notes) and produces a structured weekly status report with a health indicator.</li>
+      </ul>
+      <p>I built with Streamlit and Groq's free API (Llama 3.3 70B) specifically so the whole thing could be built and deployed at zero cost — an intentional constraint that also mirrors a real PM tradeoff: shipping something useful within a tight budget.</p>
+    </section>
+
+    <section>
+      <h2>What makes it different</h2>
+      <p>The core of this project isn't the chatbot interface — it's the domain knowledge encoded into the prompts. Each tool's system prompt is built around specific, named AI project failure modes rather than generic advice, so the output is something a real AI project team could actually use in planning or status meetings.</p>
+      <div class="callout">
+        Example: instead of a generic "add buffer time" suggestion, the Risk & Timeline Assistant explains <em>why</em> a 20-30% buffer matters for AI projects specifically — model iteration cycles don't have a fixed "done" state the way typical software tasks do.
+      </div>
+    </section>
+
+    <section>
+      <h2>What I'd improve with more time</h2>
+      <ul>
+        <li>Add persistent storage so status reports can be tracked and compared across multiple weeks</li>
+        <li>Build a small eval set to measure whether the risk flags are actually accurate and useful versus generic, and iterate the prompts against that</li>
+        <li>Add export to PDF or a direct Slack post, so it fits into a real team's existing workflow instead of living as a standalone page</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What this demonstrates</h2>
+      <p>Scoping an MVP under real constraints, encoding subject-matter expertise into a tool's design rather than just wiring up an API call, and making practical judgment calls about what to build versus cut — the core of what AI project delivery actually requires.</p>
+    </section>
+
+  </div>
+</article>
+
+</body>
+</html>
