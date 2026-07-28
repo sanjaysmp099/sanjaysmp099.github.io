@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Projects — Sanjay Gujjar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --surface-2: #EFEBE3;
+    --line: #DBD5C9;
+    --text: #17181A;
+    --text-dim: #5B5A55;
+    --amber: #B9721E;
+    --teal: #2F6B6F;
+    --green: #3F7A4C;
+    --radius: 3px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.6; }
+  a{ color:inherit; }
+  .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+
+  nav{ border-bottom:1px solid var(--line); }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:56px; }
+  .nav-back{ font-family:var(--mono); font-size:13px; color:var(--text-dim); text-decoration:none; }
+  .nav-back:hover{ color:var(--amber); }
+  .nav-id{ font-family:var(--mono); font-size:13px; color:var(--text-dim); }
+
+  header{ padding:56px 0 40px; border-bottom:1px solid var(--line); }
+  .eyebrow{ font-family:var(--mono); font-size:12px; color:var(--amber); letter-spacing:0.08em; display:block; margin-bottom:12px; }
+  h1{ font-family:var(--display); font-weight:700; font-size:clamp(30px,4.5vw,44px); }
+  .sub{ color:var(--text-dim); margin-top:12px; max-width:560px; }
+
+  main{ padding:48px 0 80px; }
+  .project-list{ display:flex; flex-direction:column; gap:16px; }
+  .project-card{
+    display:block; text-decoration:none; color:var(--text);
+    border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--surface); padding:24px; transition:border-color 0.15s;
+  }
+  .project-card:hover{ border-color:var(--amber); }
+  .project-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+  .project-name{ font-family:var(--display); font-size:20px; font-weight:600; }
+  .status{
+    font-family:var(--mono); font-size:11px; padding:4px 10px; border-radius:100px;
+    background:rgba(63,122,76,0.1); color:var(--green); border:1px solid rgba(63,122,76,0.3);
+    white-space:nowrap;
+  }
+  .project-desc{ color:var(--text-dim); margin-top:10px; font-size:15px; max-width:600px; }
+  .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+  .tag{ font-family:var(--mono); font-size:11px; color:var(--text-dim); border:1px solid var(--line); padding:4px 10px; border-radius:100px; }
+
+  .placeholder-card{
+    border:1px dashed var(--line); border-radius:var(--radius);
+    padding:24px; color:var(--text-dim); font-family:var(--mono); font-size:13px;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="nav-back" href="../index.html">← Back to portfolio</a>
+    <span class="nav-id">AI PROJECTS</span>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow">CASE STUDIES</span>
+    <h1>AI Projects</h1>
+    <p class="sub">Tools I've built to demonstrate how I approach AI/ML project delivery — scoping, risk planning, and shipping something that actually works.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="project-list">
+
+      <a class="project-card" href="ai-project-pulse.html">
+        <div class="project-row">
+          <div class="project-name">AI Project Pulse</div>
+          <div class="status">🟢 LIVE</div>
+        </div>
+        <p class="project-desc">A tool for managing AI/ML project delivery: AI-specific risk & timeline analysis, plus a status report generator that turns messy standup notes into a clean weekly report.</p>
+        <div class="tags">
+          <span class="tag">Streamlit</span>
+          <span class="tag">Groq / Llama 3.3</span>
+          <span class="tag">Prompt design</span>
+        </div>
+      </a>
+
+      <div class="placeholder-card">More case studies coming soon</div>
+
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
