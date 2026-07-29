@@ -33,7 +33,7 @@ async function init() {
     setStatus("Loading language model (runs on CPU, first visit takes a bit)...");
     progressTrack.classList.remove("hidden");
     generator = await pipeline("text-generation", GEN_MODEL_ID, {
-      dtype: "q8",
+      dtype: "fp32",
       progress_callback: (p) => {
         if (p.status === "progress" && p.total) {
           const pct = Math.round((p.loaded / p.total) * 100);
