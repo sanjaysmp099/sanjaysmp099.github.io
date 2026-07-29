@@ -1,15 +1,14 @@
-import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
-import { pipeline, env } from "https://esm.run/@xenova/transformers";
+import { pipeline, env } from "https://esm.run/@huggingface/transformers";
 
 // Always fetch models from the Hugging Face CDN, never look for local files
 env.allowLocalModels = false;
 
-const LLM_MODEL_ID = "Llama-3.2-1B-Instruct-q4f32_1-MLC";
 const EMBED_MODEL_ID = "Xenova/bge-small-en-v1.5";
+const GEN_MODEL_ID = "onnx-community/gemma-3-270m-it-ONNX";
 const TOP_K = 4;
 const SIMILARITY_THRESHOLD = 0.45; // tune this if the guardrail feels too strict/loose
 
-let llmEngine = null;
+let generator = null;
 let embedder = null;
 let kbChunks = [];
 
@@ -31,12 +30,16 @@ async function init() {
     setStatus("Loading embedding model...");
     embedder = await pipeline("feature-extraction", EMBED_MODEL_ID);
 
-    setStatus("Loading language model (first visit can take a minute)...");
+    setStatus("Loading language model (runs on CPU, first visit takes a bit)...");
     progressTrack.classList.remove("hidden");
-    llmEngine = await CreateMLCEngine(LLM_MODEL_ID, {
-      initProgressCallback: (p) => {
-        progressBar.style.width = `${Math.round(p.progress * 100)}%`;
-        setStatus(p.text || "Loading model...");
+    generator = await pipeline("text-generation", GEN_MODEL_ID, {
+      dtype: "q8",
+      progress_callback: (p) => {
+        if (p.status === "progress" && p.total) {
+          const pct = Math.round((p.loaded / p.total) * 100);
+          progressBar.style.width = `${pct}%`;
+          setStatus(`Loading language model... ${pct}%`);
+        }
       },
     });
 
@@ -77,7 +80,7 @@ function retrieveTopChunks(queryEmbedding, k = TOP_K) {
 
 function buildPrompt(query, chunks) {
   const context = chunks.map((c) => `[${c.title}]\n${c.text}`).join("\n\n");
-  return `Answer the question using ONLY the context below. If the context doesn't contain enough information to answer, say so honestly instead of guessing.
+  return `Answer the question using ONLY the context below. If the context doesn't contain enough information to answer, say so honestly instead of guessing. Be concise.
 
 Context:
 ${context}
@@ -88,7 +91,7 @@ Question: ${query}`;
 chatForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const question = chatInput.value.trim();
-  if (!question || !llmEngine) return;
+  if (!question || !generator) return;
 
   appendMessage("user", question);
   chatInput.value = "";
@@ -98,7 +101,7 @@ chatForm.addEventListener("submit", async (e) => {
   const topChunks = retrieveTopChunks(queryEmbedding);
 
   // Guardrail: if even the best-matching chunk isn't close enough, treat
-  // the question as off-topic rather than letting the LLM guess.
+  // the question as off-topic rather than letting the model guess.
   if (topChunks.length === 0 || topChunks[0].score < SIMILARITY_THRESHOLD) {
     appendMessage(
       "bot",
@@ -109,16 +112,16 @@ chatForm.addEventListener("submit", async (e) => {
   }
 
   const prompt = buildPrompt(question, topChunks);
-  const response = await llmEngine.chat.completions.create({
-    messages: [
-      { role: "system", content: "You are a concise, accurate project management assistant." },
-      { role: "user", content: prompt },
-    ],
-    temperature: 0.3,
-    max_tokens: 400,
-  });
 
-  const answer = response.choices[0].message.content.trim();
+  const output = await generator(
+    [{ role: "user", content: prompt }],
+    { max_new_tokens: 300, temperature: 0.3, do_sample: false }
+  );
+
+  const generated = output[0].generated_text;
+  const answer = Array.isArray(generated)
+    ? generated[generated.length - 1].content.trim()
+    : String(generated).trim();
 
   const seen = new Set();
   const sources = [];
