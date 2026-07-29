@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM Assistant</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="chat-wrapper">
+    <header class="chat-header">
+      <h1>PM Assistant</h1>
+      <p>Open-source AI assistant for project management questions</p>
+    </header>
+
+    <div id="chat-log" class="chat-log">
+      <div class="message bot">
+        Hi! I can answer questions about project management — Agile, Scrum,
+        risk, scheduling, stakeholders, and more. Ask me anything in that space.
+      </div>
+    </div>
+
+    <div id="loading-indicator" class="loading hidden">Thinking…</div>
+
+    <form id="chat-form" class="chat-form">
+      <input
+        id="chat-input"
+        type="text"
+        placeholder="Ask a project management question…"
+        autocomplete="off"
+        required
+      />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
