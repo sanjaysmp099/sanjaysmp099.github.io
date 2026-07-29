@@ -4,7 +4,7 @@ import { pipeline, env } from "https://esm.run/@xenova/transformers";
 // Always fetch models from the Hugging Face CDN, never look for local files
 env.allowLocalModels = false;
 
-const LLM_MODEL_ID = "Llama-3.2-1B-Instruct-q4f16_1-MLC";
+const LLM_MODEL_ID = "Llama-3.2-1B-Instruct-q4f32_1-MLC";
 const EMBED_MODEL_ID = "Xenova/bge-small-en-v1.5";
 const TOP_K = 4;
 const SIMILARITY_THRESHOLD = 0.45; // tune this if the guardrail feels too strict/loose
