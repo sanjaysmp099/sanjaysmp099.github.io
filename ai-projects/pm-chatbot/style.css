@@ -80,10 +80,25 @@ body {
   color: #1d3557;
 }
 
-.loading {
-  padding: 0 24px 8px;
+.status {
+  padding: 0 24px 6px;
   font-size: 13px;
   color: #888;
+}
+
+.progress-track {
+  margin: 0 24px 12px;
+  height: 6px;
+  background: #eee;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #1d3557;
+  transition: width 0.2s ease;
 }
 
 .hidden {
@@ -115,6 +130,11 @@ body {
   cursor: pointer;
 }
 
-.chat-form button:hover {
+.chat-form button:disabled {
+  background: #aab3c0;
+  cursor: not-allowed;
+}
+
+.chat-form button:hover:not(:disabled) {
   background: #163049;
 }

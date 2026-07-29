@@ -11,7 +11,7 @@
   <div class="chat-wrapper">
     <header class="chat-header">
       <h1>PM Assistant</h1>
-      <p>Open-source AI assistant for project management questions</p>
+      <p>Runs entirely in your browser — open-source model, no server</p>
     </header>
 
     <div id="chat-log" class="chat-log">
@@ -21,20 +21,24 @@
       </div>
     </div>
 
-    <div id="loading-indicator" class="loading hidden">Thinking…</div>
+    <div id="status" class="status hidden"></div>
+    <div id="progress-track" class="progress-track hidden">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
 
     <form id="chat-form" class="chat-form">
       <input
         id="chat-input"
         type="text"
-        placeholder="Ask a project management question…"
+        placeholder="Loading model, please wait..."
         autocomplete="off"
+        disabled
         required
       />
-      <button type="submit">Send</button>
+      <button type="submit" disabled>Send</button>
     </form>
   </div>
 
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
