@@ -9,13 +9,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* ============================================================
-     EDIT YOUR CONTENT in the CONFIG object near the bottom of
-     this file (inside the <script> tag). You should not need to
-     touch this CSS or the HTML structure below.
-     ============================================================ */
-
-  :root{
+/* ============================================================
+   EDIT YOUR CONTENT in the CONFIG object near the bottom of
+   this file (inside the <script> tag). You should not need to
+   touch this CSS or the HTML structure below.
+   ============================================================ */
+:root{
   --bg: #F7F5F0;
   --surface: #FFFFFF;
   --surface-2: #EFEBE3;
@@ -31,178 +30,177 @@
   --body: 'IBM Plex Sans', sans-serif;
   --mono: 'IBM Plex Mono', monospace;
 }
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--body);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{ color:inherit; }
+.wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
 
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--body);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{ color:inherit; }
-  .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+/* ---------- Nav ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(247,245,240,0.88);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:56px; }
+.nav-id{ font-family:var(--mono); font-size:13px; color:var(--text-dim); letter-spacing:0.02em; }
+.nav-links{ display:flex; gap:28px; list-style:none; }
+.nav-links a{
+  font-size:14px; text-decoration:none; color:var(--text-dim);
+  transition:color 0.15s;
+}
+.nav-links a:hover{ color:var(--amber); }
 
-  /* ---------- Nav ---------- */
-  nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(247,245,240,0.88);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:56px; }
-  .nav-id{ font-family:var(--mono); font-size:13px; color:var(--text-dim); letter-spacing:0.02em; }
-  .nav-links{ display:flex; gap:28px; list-style:none; }
-  .nav-links a{
-    font-size:14px; text-decoration:none; color:var(--text-dim);
-    transition:color 0.15s;
-  }
-  .nav-links a:hover{ color:var(--amber); }
+/* ---------- Hero ---------- */
+header.hero{ padding:88px 0 64px; border-bottom:1px solid var(--line); }
+.status-pill{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--mono); font-size:12px; letter-spacing:0.05em;
+  color:var(--amber); background:rgba(232,163,61,0.08);
+  border:1px solid rgba(232,163,61,0.35);
+  padding:5px 12px; border-radius:100px; margin-bottom:28px;
+}
+.status-pill .dot{
+  width:6px; height:6px; border-radius:50%; background:var(--amber);
+  box-shadow:0 0 0 3px rgba(232,163,61,0.18);
+}
+h1.name{
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(38px, 6vw, 64px);
+  line-height:1.05; letter-spacing:-0.01em;
+  margin-bottom:10px;
+}
+.role{
+  font-family:var(--display); font-weight:500;
+  font-size:clamp(18px, 2.4vw, 24px);
+  color:var(--teal); margin-bottom:22px;
+}
+.tagline{
+  max-width:560px; font-size:17px; color:var(--text-dim); margin-bottom:36px;
+}
+.hero-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:56px; }
+.btn{
+  font-family:var(--body); font-weight:500; font-size:14px;
+  padding:11px 20px; border-radius:var(--radius);
+  text-decoration:none; display:inline-block;
+  border:1px solid var(--line); transition:all 0.15s;
+}
+.btn-primary{ background:var(--amber); color:#181410; border-color:var(--amber); }
+.btn-primary:hover{ background:#f0ae4c; }
+.btn-ghost{ color:var(--text); }
+.btn-ghost:hover{ border-color:var(--text-dim); }
 
-  /* ---------- Hero ---------- */
-  header.hero{ padding:88px 0 64px; border-bottom:1px solid var(--line); }
-  .status-pill{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:var(--mono); font-size:12px; letter-spacing:0.05em;
-    color:var(--amber); background:rgba(232,163,61,0.08);
-    border:1px solid rgba(232,163,61,0.35);
-    padding:5px 12px; border-radius:100px; margin-bottom:28px;
-  }
-  .status-pill .dot{
-    width:6px; height:6px; border-radius:50%; background:var(--amber);
-    box-shadow:0 0 0 3px rgba(232,163,61,0.18);
-  }
-  h1.name{
-    font-family:var(--display); font-weight:700;
-    font-size:clamp(38px, 6vw, 64px);
-    line-height:1.05; letter-spacing:-0.01em;
-    margin-bottom:10px;
-  }
-  .role{
-    font-family:var(--display); font-weight:500;
-    font-size:clamp(18px, 2.4vw, 24px);
-    color:var(--teal); margin-bottom:22px;
-  }
-  .tagline{
-    max-width:560px; font-size:17px; color:var(--text-dim); margin-bottom:36px;
-  }
-  .hero-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:56px; }
-  .btn{
-    font-family:var(--body); font-weight:500; font-size:14px;
-    padding:11px 20px; border-radius:var(--radius);
-    text-decoration:none; display:inline-block;
-    border:1px solid var(--line); transition:all 0.15s;
-  }
-  .btn-primary{ background:var(--amber); color:#181410; border-color:var(--amber); }
-  .btn-primary:hover{ background:#f0ae4c; }
-  .btn-ghost{ color:var(--text); }
-  .btn-ghost:hover{ border-color:var(--text-dim); }
+/* ---------- Signature: Career Gantt ---------- */
+.gantt{ border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+.gantt-head{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--line);
+  font-family:var(--mono); font-size:11px; color:var(--text-dim); letter-spacing:0.06em;
+}
+.gantt-row{
+  display:grid; grid-template-columns:170px 1fr;
+  border-bottom:1px solid var(--line);
+}
+.gantt-row:last-child{ border-bottom:none; }
+.gantt-label{
+  padding:16px; font-family:var(--mono); font-size:12px; color:var(--text-dim);
+  border-right:1px solid var(--line); display:flex; flex-direction:column; justify-content:center;
+}
+.gantt-label .yr{ color:var(--text); font-size:13px; margin-bottom:3px; }
+.gantt-track{ position:relative; padding:16px; background:var(--surface); }
+.gantt-bar{
+  height:34px; border-radius:var(--radius);
+  background:linear-gradient(90deg, var(--teal), rgba(74,139,143,0.55));
+  display:flex; align-items:center; padding:0 14px;
+  font-size:13px; font-weight:500; color:#0d1418;
+  animation:grow 0.9s ease-out both;
+  transform-origin:left;
+}
+.gantt-row.current .gantt-bar{
+  background:linear-gradient(90deg, var(--amber), rgba(232,163,61,0.6));
+}
+@keyframes grow{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
+@media (prefers-reduced-motion: reduce){
+  .gantt-bar{ animation:none; }
+}
 
-  /* ---------- Signature: Career Gantt ---------- */
-  .gantt{ border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-  .gantt-head{
-    display:flex; justify-content:space-between; align-items:center;
-    padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--line);
-    font-family:var(--mono); font-size:11px; color:var(--text-dim); letter-spacing:0.06em;
-  }
-  .gantt-row{
-    display:grid; grid-template-columns:170px 1fr;
-    border-bottom:1px solid var(--line);
-  }
-  .gantt-row:last-child{ border-bottom:none; }
-  .gantt-label{
-    padding:16px; font-family:var(--mono); font-size:12px; color:var(--text-dim);
-    border-right:1px solid var(--line); display:flex; flex-direction:column; justify-content:center;
-  }
-  .gantt-label .yr{ color:var(--text); font-size:13px; margin-bottom:3px; }
-  .gantt-track{ position:relative; padding:16px; background:var(--surface); }
-  .gantt-bar{
-    height:34px; border-radius:var(--radius);
-    background:linear-gradient(90deg, var(--teal), rgba(74,139,143,0.55));
-    display:flex; align-items:center; padding:0 14px;
-    font-size:13px; font-weight:500; color:#0d1418;
-    animation:grow 0.9s ease-out both;
-    transform-origin:left;
-  }
-  .gantt-row.current .gantt-bar{
-    background:linear-gradient(90deg, var(--amber), rgba(232,163,61,0.6));
-  }
-  @keyframes grow{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
-  @media (prefers-reduced-motion: reduce){
-    .gantt-bar{ animation:none; }
-  }
+/* ---------- Sections ---------- */
+section{ padding:64px 0; border-bottom:1px solid var(--line); }
+.eyebrow{
+  font-family:var(--mono); font-size:12px; color:var(--amber);
+  letter-spacing:0.08em; margin-bottom:14px; display:block;
+}
+h2{
+  font-family:var(--display); font-weight:600; font-size:28px; margin-bottom:24px;
+}
+.about-text{ max-width:640px; color:var(--text-dim); font-size:16px; }
+.about-text p + p{ margin-top:14px; }
 
-  /* ---------- Sections ---------- */
-  section{ padding:64px 0; border-bottom:1px solid var(--line); }
-  .eyebrow{
-    font-family:var(--mono); font-size:12px; color:var(--amber);
-    letter-spacing:0.08em; margin-bottom:14px; display:block;
-  }
-  h2{
-    font-family:var(--display); font-weight:600; font-size:28px; margin-bottom:24px;
-  }
-  .about-text{ max-width:640px; color:var(--text-dim); font-size:16px; }
-  .about-text p + p{ margin-top:14px; }
+/* ---------- Skills ---------- */
+.skills-grid{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  gap:14px; margin-top:8px;
+}
+.skill-card{
+  border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px; background:var(--surface);
+}
+.skill-card .k{ font-family:var(--mono); font-size:11px; color:var(--text-dim); letter-spacing:0.04em; }
+.skill-card .v{ font-family:var(--display); font-size:16px; font-weight:600; margin-top:6px; }
 
-  /* ---------- Skills ---------- */
-  .skills-grid{
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
-    gap:14px; margin-top:8px;
-  }
-  .skill-card{
-    border:1px solid var(--line); border-radius:var(--radius);
-    padding:16px; background:var(--surface);
-  }
-  .skill-card .k{ font-family:var(--mono); font-size:11px; color:var(--text-dim); letter-spacing:0.04em; }
-  .skill-card .v{ font-family:var(--display); font-size:16px; font-weight:600; margin-top:6px; }
+/* ---------- Featured builds ---------- */
+.projects-container{ display:flex; flex-direction:column; gap:20px; }
+.project-card{
+  border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--surface); overflow:hidden;
+}
+.project-head{
+  padding:20px 24px; border-bottom:1px solid var(--line);
+  display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;
+}
+.project-title{ font-family:var(--display); font-size:20px; font-weight:600; }
+.health{
+  font-family:var(--mono); font-size:11px; padding:4px 10px; border-radius:100px;
+  background:rgba(111,169,122,0.12); color:var(--green); border:1px solid rgba(111,169,122,0.3);
+  white-space:nowrap;
+}
+.project-body{ padding:24px; }
+.project-desc{ color:var(--text-dim); font-size:15px; margin-bottom:18px; max-width:600px; }
+.tags{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px; }
+.tag{
+  font-family:var(--mono); font-size:11px; color:var(--text-dim);
+  border:1px solid var(--line); padding:4px 10px; border-radius:100px;
+}
+.project-links{ display:flex; gap:12px; flex-wrap:wrap; }
 
-  /* ---------- Featured build ---------- */
-  .project-card{
-    border:1px solid var(--line); border-radius:var(--radius);
-    background:var(--surface); overflow:hidden;
-  }
-  .project-head{
-    padding:20px 24px; border-bottom:1px solid var(--line);
-    display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;
-  }
-  .project-title{ font-family:var(--display); font-size:20px; font-weight:600; }
-  .health{
-    font-family:var(--mono); font-size:11px; padding:4px 10px; border-radius:100px;
-    background:rgba(111,169,122,0.12); color:var(--green); border:1px solid rgba(111,169,122,0.3);
-    white-space:nowrap;
-  }
-  .project-body{ padding:24px; }
-  .project-desc{ color:var(--text-dim); font-size:15px; margin-bottom:18px; max-width:600px; }
-  .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px; }
-  .tag{
-    font-family:var(--mono); font-size:11px; color:var(--text-dim);
-    border:1px solid var(--line); padding:4px 10px; border-radius:100px;
-  }
-  .project-links{ display:flex; gap:12px; flex-wrap:wrap; }
+/* ---------- Contact ---------- */
+footer{ padding:64px 0 80px; }
+.contact-links{ display:flex; gap:16px; flex-wrap:wrap; margin-top:24px; }
+.contact-links a{
+  font-family:var(--mono); font-size:13px; color:var(--text-dim);
+  border:1px solid var(--line); padding:9px 16px; border-radius:var(--radius);
+  text-decoration:none; transition:all 0.15s;
+}
+.contact-links a:hover{ color:var(--amber); border-color:var(--amber); }
+.fine-print{ margin-top:56px; font-family:var(--mono); font-size:11px; color:var(--text-dim); opacity:0.6; }
 
-  /* ---------- Contact ---------- */
-  footer{ padding:64px 0 80px; }
-  .contact-links{ display:flex; gap:16px; flex-wrap:wrap; margin-top:24px; }
-  .contact-links a{
-    font-family:var(--mono); font-size:13px; color:var(--text-dim);
-    border:1px solid var(--line); padding:9px 16px; border-radius:var(--radius);
-    text-decoration:none; transition:all 0.15s;
-  }
-  .contact-links a:hover{ color:var(--amber); border-color:var(--amber); }
-  .fine-print{ margin-top:56px; font-family:var(--mono); font-size:11px; color:var(--text-dim); opacity:0.6; }
-
-  /* ---------- Reveal on scroll ---------- */
-  .reveal{ opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.in{ opacity:1; transform:translateY(0); }
-  @media (prefers-reduced-motion: reduce){
-    .reveal{ opacity:1; transform:none; transition:none; }
-  }
-
-  @media (max-width:640px){
-    .gantt-row{ grid-template-columns:1fr; }
-    .gantt-label{ border-right:none; border-bottom:1px solid var(--line); }
-  }
+/* ---------- Reveal on scroll ---------- */
+.reveal{ opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease; }
+.reveal.in{ opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1; transform:none; transition:none; }
+}
+@media (max-width:640px){
+  .gantt-row{ grid-template-columns:1fr; }
+  .gantt-label{ border-right:none; border-bottom:1px solid var(--line); }
+}
 </style>
 </head>
 <body>
@@ -251,22 +249,8 @@
 <section id="build">
   <div class="wrap reveal">
     <span class="eyebrow">02 — SHIPPED</span>
-    <h2>Featured build</h2>
-    <div class="project-card">
-      <div class="project-head">
-        <div class="project-title" id="project-title">Project name</div>
-        <div class="health" id="project-health">🟢 LIVE</div>
-      </div>
-      <div class="project-body">
-        <p class="project-desc" id="project-desc">Description goes here.</p>
-        <div class="tags" id="project-tags"></div>
-        <div class="project-links">
-          <a class="btn btn-primary" id="project-demo" href="#" target="_blank" rel="noopener">Launch live demo →</a>
-          <a class="btn btn-ghost" id="project-github" href="#" target="_blank" rel="noopener">View source</a>
-          <a class="btn btn-ghost" id="project-writeup" href="#" target="_blank" rel="noopener">Read case study</a>
-        </div>
-      </div>
-    </div>
+    <h2>Featured builds</h2>
+    <div class="projects-container" id="projects-container"></div>
   </div>
 </section>
 
@@ -310,15 +294,27 @@ const CONFIG = {
     { years: "2024 – Now", title: "AI Project Mgmt", note: "Focused on AI-specific delivery risk", width: 95, current: true }
   ],
 
-  project: {
-    title: "AI Project Pulse",
-    health: "🟢 LIVE",
-    description: "A tool for managing AI/ML project delivery: AI-specific risk & timeline analysis, plus a status report generator that turns messy standup notes into a clean weekly report.",
-    tags: ["Streamlit", "Groq / Llama 3.3", "Prompt design", "Free-tier deployment"],
-    demoUrl: "https://your-app-name.streamlit.app",
-    githubUrl: "https://github.com/your-username/ai-project-pulse",
-    writeupUrl: "ai-projects/ai-project-pulse.html"
-  },
+  // Add one entry per shipped project — a card is rendered for each.
+  projects: [
+    {
+      title: "PM Assistant Chatbot",
+      health: "🟢 LIVE",
+      description: "An AI assistant that answers only project-management questions — Agile, Scrum, risk, scheduling — grounded in a curated knowledge base with automatic source citations on every answer. Runs entirely in the browser: no server, no API keys, zero hosting cost.",
+      tags: ["Retrieval-Augmented Generation", "Open-source LLM", "transformers.js", "Zero-cost hosting"],
+      demoUrl: "https://sanjaysmp099.github.io/ai-projects/pm-chatbot/",
+      githubUrl: "https://github.com/sanjaysmp099/sanjaysmp099.github.io/tree/main/ai-projects/pm-chatbot",
+      writeupUrl: "https://github.com/sanjaysmp099/sanjaysmp099.github.io/blob/main/ai-projects/pm-chatbot/README.md"
+    },
+    {
+      title: "Meeting Companion",
+      health: "🟢 LIVE",
+      description: "Upload a meeting recording and get an instant transcript plus a bullet-point summary of key points and decisions. Whisper transcription and LLM summarization both run client-side — no backend, no per-use cost.",
+      tags: ["OpenAI Whisper", "Open-source LLM", "transformers.js", "Client-side AI"],
+      demoUrl: "https://sanjaysmp099.github.io/ai-projects/meeting-companion/",
+      githubUrl: "https://github.com/sanjaysmp099/sanjaysmp099.github.io/tree/main/ai-projects/meeting-companion",
+      writeupUrl: "https://github.com/sanjaysmp099/sanjaysmp099.github.io/blob/main/ai-projects/meeting-companion/README.md"
+    }
+  ],
 
   skills: [
     { label: "CORE", value: "AI project risk & timeline planning" },
@@ -358,13 +354,23 @@ CONFIG.gantt.forEach(row => {
 
 document.getElementById('about-text').innerHTML = CONFIG.about.map(p => `<p>${p}</p>`).join('');
 
-document.getElementById('project-title').textContent = CONFIG.project.title;
-document.getElementById('project-health').textContent = CONFIG.project.health;
-document.getElementById('project-desc').textContent = CONFIG.project.description;
-document.getElementById('project-tags').innerHTML = CONFIG.project.tags.map(t => `<span class="tag">${t}</span>`).join('');
-document.getElementById('project-demo').href = CONFIG.project.demoUrl;
-document.getElementById('project-github').href = CONFIG.project.githubUrl;
-document.getElementById('project-writeup').href = CONFIG.project.writeupUrl;
+document.getElementById('projects-container').innerHTML = CONFIG.projects.map(p => `
+  <div class="project-card">
+    <div class="project-head">
+      <div class="project-title">${p.title}</div>
+      <div class="health">${p.health}</div>
+    </div>
+    <div class="project-body">
+      <p class="project-desc">${p.description}</p>
+      <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      <div class="project-links">
+        <a class="btn btn-primary" href="${p.demoUrl}" target="_blank" rel="noopener">Launch live demo →</a>
+        <a class="btn btn-ghost" href="${p.githubUrl}" target="_blank" rel="noopener">View source</a>
+        <a class="btn btn-ghost" href="${p.writeupUrl}" target="_blank" rel="noopener">Read case study</a>
+      </div>
+    </div>
+  </div>
+`).join('');
 
 document.getElementById('skills-grid').innerHTML = CONFIG.skills.map(s => `
   <div class="skill-card"><div class="k">${s.label}</div><div class="v">${s.value}</div></div>
