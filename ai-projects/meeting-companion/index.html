@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meeting Companion</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wrapper">
+    <header class="app-header">
+      <h1>Meeting Companion</h1>
+      <p>Upload a meeting recording — transcribed and summarized entirely in your browser, no server involved</p>
+    </header>
+
+    <section class="upload-section">
+      <input id="audio-input" type="file" accept="audio/*" />
+      <button id="run-button" disabled>Transcribe &amp; Summarize</button>
+    </section>
+
+    <div id="status" class="status hidden"></div>
+    <div id="progress-track" class="progress-track hidden">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
+
+    <section class="output-section">
+      <div class="output-block">
+        <h2>Transcript</h2>
+        <textarea id="transcript-box" readonly placeholder="Transcript will appear here..."></textarea>
+      </div>
+
+      <div class="output-block">
+        <h2>Key Points &amp; Decisions</h2>
+        <textarea id="summary-box" readonly placeholder="Summary will appear here..."></textarea>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
