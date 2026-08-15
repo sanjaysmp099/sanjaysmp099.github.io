@@ -91,6 +91,7 @@ h1.name{
   padding:11px 20px; border-radius:var(--radius);
   text-decoration:none; display:inline-block;
   border:1px solid var(--line); transition:all 0.15s;
+  cursor:pointer; background:none;
 }
 .btn-primary{ background:var(--amber); color:#181410; border-color:var(--amber); }
 .btn-primary:hover{ background:#f0ae4c; }
@@ -179,6 +180,25 @@ h2{
   border:1px solid var(--line); padding:4px 10px; border-radius:100px;
 }
 .project-links{ display:flex; gap:12px; flex-wrap:wrap; }
+
+/* ---------- Expandable project details ---------- */
+.details-toggle{ font-family:var(--mono); }
+.project-details{
+  margin-top:20px; padding-top:20px; border-top:1px dashed var(--line);
+}
+.project-details.hidden{ display:none; }
+.project-details h4{
+  font-family:var(--mono); font-size:11px; letter-spacing:0.06em;
+  color:var(--amber); text-transform:uppercase; margin:18px 0 8px;
+}
+.project-details h4:first-child{ margin-top:0; }
+.detail-list{ padding-left:20px; color:var(--text-dim); font-size:14px; }
+.detail-list li{ margin-bottom:6px; }
+.code-block{
+  background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius);
+  padding:14px 16px; overflow-x:auto; font-family:var(--mono); font-size:12px;
+  line-height:1.6; color:var(--text);
+}
 
 /* ---------- Contact ---------- */
 footer{ padding:64px 0 80px; }
@@ -295,6 +315,9 @@ const CONFIG = {
   ],
 
   // Add one entry per shipped project — a card is rendered for each.
+  // Set "expandable: true" (instead of demoUrl/githubUrl/writeupUrl) for
+  // projects with no public demo link — the card gets a "Show details"
+  // toggle that expands in place instead of external link buttons.
   projects: [
     {
       title: "PM Assistant Chatbot",
@@ -313,6 +336,71 @@ const CONFIG = {
       demoUrl: "https://sanjaysmp099.github.io/ai-projects/meeting-companion/",
       githubUrl: "https://github.com/sanjaysmp099/sanjaysmp099.github.io/tree/main/ai-projects/meeting-companion",
       writeupUrl: "https://github.com/sanjaysmp099/sanjaysmp099.github.io/blob/main/ai-projects/meeting-companion/README.md"
+    },
+    {
+      title: "Daily Summary Email Automation — Gmail",
+      health: "🟢 LIVE",
+      description: "Reads unread Gmail messages every morning, summarizes each one in a single line with the Gemini API, and emails the digest straight back to the inbox — fully serverless, running entirely on Google's own free infrastructure.",
+      tags: ["Google Apps Script", "Gmail API", "Gemini API", "Serverless", "Zero-cost automation"],
+      expandable: true,
+      details: {
+        stack: [
+          "Google Apps Script — free JavaScript runtime tied to a Google account",
+          "Gmail API (via GmailApp) — reading unread mail and sending the summary",
+          "Gemini API — summarization",
+          "Time-driven trigger — runs the job automatically every morning"
+        ],
+        codeLines: [
+          "function summarizeAndEmail() {",
+          "  const threads = GmailApp.search('is:unread in:inbox');",
+          "  let emailText = '';",
+          "",
+          "  threads.forEach(thread => {",
+          "    const msg = thread.getMessages()[thread.getMessageCount() - 1]; // latest message in thread",
+          "    emailText += `From: ${msg.getFrom()}\\nSubject: ${msg.getSubject()}\\n`;",
+          "    emailText += `${msg.getPlainBody().substring(0, 300)}\\n\\n---\\n\\n`;",
+          "  });",
+          "",
+          "  if (!emailText) {",
+          "    Logger.log('No unread emails found.');",
+          "    return;",
+          "  }",
+          "",
+          "  const apiKey = 'YOUR_GEMINI_API_KEY';",
+          "  const prompt = `For each email below, write exactly ONE line summarizing what it's about. Format as a bullet list: \"- [Sender]: one-line summary\". Do not group by priority, just list each email once.\\n\\n${emailText}`;",
+          "",
+          "  const response = UrlFetchApp.fetch(",
+          "    `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent?key=${apiKey}`,",
+          "    {",
+          "      method: 'post',",
+          "      contentType: 'application/json',",
+          "      payload: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })",
+          "    }",
+          "  );",
+          "",
+          "  const data = JSON.parse(response.getContentText());",
+          "  const summary = data.candidates[0].content.parts[0].text;",
+          "",
+          "  GmailApp.sendEmail('your@gmail.com', 'Unread Mail Summary', summary);",
+          "",
+          "  Logger.log('Email sent.');",
+          "}"
+        ],
+        steps: [
+          "Open the Apps Script project at script.google.com and open the project containing summarizeAndEmail.",
+          "Save the script (Ctrl+S / Cmd+S) — Apps Script only detects functions after a save, so this must happen before adding a trigger.",
+          "Run it once manually — pick summarizeAndEmail from the function dropdown and click Run (▶). This triggers Google's authorization flow inline so the scheduled trigger won't hit an auth pop-up later.",
+          "Open the Triggers page (clock icon in the sidebar) and click + Add Trigger.",
+          "Configure it: function summarizeAndEmail, deployment Head, event source Time-driven, type Day timer, time window set to your preferred morning slot (e.g. 6am–7am).",
+          "Save — if a pop-up-blocked error appears, allow pop-ups for script.google.com and retry.",
+          "Verify the next morning via the Executions page, and check the inbox for the \"Unread Mail Summary\" email."
+        ],
+        notes: [
+          "Apps Script day-timer triggers fire within the chosen hour window, not at an exact minute.",
+          "If an email doesn't arrive despite a clean execution log, check the Sent folder first (a copy always lands there) and check Gmail filters that might be silently archiving or deleting it.",
+          "Runs entirely within Google's free quotas for personal daily use — well under the 20,000 URL-fetch-calls/day and 100-emails/day limits on a free Gmail account."
+        ]
+      }
     }
   ],
 
@@ -354,23 +442,67 @@ CONFIG.gantt.forEach(row => {
 
 document.getElementById('about-text').innerHTML = CONFIG.about.map(p => `<p>${p}</p>`).join('');
 
-document.getElementById('projects-container').innerHTML = CONFIG.projects.map(p => `
-  <div class="project-card">
-    <div class="project-head">
-      <div class="project-title">${p.title}</div>
-      <div class="health">${p.health}</div>
-    </div>
-    <div class="project-body">
-      <p class="project-desc">${p.description}</p>
-      <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+function escapeHtml(str){
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+document.getElementById('projects-container').innerHTML = CONFIG.projects.map((p, i) => {
+  let footer, detailsBlock;
+
+  if (p.expandable) {
+    footer = `
+      <button class="btn btn-ghost details-toggle" type="button" data-target="project-details-${i}">Show details ▾</button>
+    `;
+    const d = p.details;
+    detailsBlock = `
+      <div class="project-details hidden" id="project-details-${i}">
+        <h4>Stack</h4>
+        <ul class="detail-list">${d.stack.map(s => `<li>${s}</li>`).join('')}</ul>
+        <h4>Script</h4>
+        <pre class="code-block"><code>${escapeHtml(d.codeLines.join('\n'))}</code></pre>
+        <h4>Setup steps</h4>
+        <ol class="detail-list">${d.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+        <h4>Notes</h4>
+        <ul class="detail-list">${d.notes.map(s => `<li>${s}</li>`).join('')}</ul>
+      </div>
+    `;
+  } else {
+    footer = `
       <div class="project-links">
         <a class="btn btn-primary" href="${p.demoUrl}" target="_blank" rel="noopener">Launch live demo →</a>
         <a class="btn btn-ghost" href="${p.githubUrl}" target="_blank" rel="noopener">View source</a>
         <a class="btn btn-ghost" href="${p.writeupUrl}" target="_blank" rel="noopener">Read case study</a>
       </div>
+    `;
+    detailsBlock = '';
+  }
+
+  return `
+    <div class="project-card">
+      <div class="project-head">
+        <div class="project-title">${p.title}</div>
+        <div class="health">${p.health}</div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">${p.description}</p>
+        <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        ${footer}
+        ${detailsBlock}
+      </div>
     </div>
-  </div>
-`).join('');
+  `;
+}).join('');
+
+document.querySelectorAll('.details-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.target);
+    const nowHidden = target.classList.toggle('hidden');
+    btn.textContent = nowHidden ? 'Show details ▾' : 'Hide details ▴';
+  });
+});
 
 document.getElementById('skills-grid').innerHTML = CONFIG.skills.map(s => `
   <div class="skill-card"><div class="k">${s.label}</div><div class="v">${s.value}</div></div>
