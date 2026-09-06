@@ -1,0 +1,20 @@
+<div class="history-panel">
+  <h3>Move History</h3>
+  <p *ngIf="moves.length === 0" class="empty">No moves yet.</p>
+  <table *ngIf="moves.length > 0">
+    <thead>
+      <tr>
+        <th>Move</th>
+        <th>Player</th>
+        <th>Position</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let move of moves; trackBy: trackByMoveNumber">
+        <td>{{ move.moveNumber }}</td>
+        <td>{{ move.player }}</td>
+        <td>Row {{ move.row + 1 }}, Column {{ move.column + 1 }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

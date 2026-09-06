@@ -1,0 +1,19 @@
+.mode-selector {
+  display: inline-flex;
+  border: 1px solid #cfd3da;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mode-btn {
+  border: none;
+  background: #fff;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.mode-btn.active {
+  background: #4457e6;
+  color: #fff;
+}

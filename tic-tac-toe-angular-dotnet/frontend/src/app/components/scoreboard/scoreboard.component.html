@@ -1,0 +1,9 @@
+<div class="scoreboard-panel">
+  <h3>Scoreboard</h3>
+  <div class="rows">
+    <div class="row"><span>X wins</span><strong>{{ scoreboard.xWins }}</strong></div>
+    <div class="row"><span>O wins</span><strong>{{ scoreboard.oWins }}</strong></div>
+    <div class="row"><span>Draws</span><strong>{{ scoreboard.draws }}</strong></div>
+  </div>
+  <button class="link-button" (click)="resetScoreboard.emit()">Reset Scoreboard</button>
+</div>

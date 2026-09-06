@@ -1,0 +1,34 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 96px);
+  grid-template-rows: repeat(3, 96px);
+  gap: 8px;
+}
+
+.cell {
+  font-size: 2.5rem;
+  font-weight: 700;
+  border: 2px solid #cfd3da;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  color: #2b2f38;
+}
+
+.cell:not(:disabled):hover {
+  background: #eef2ff;
+  transform: translateY(-1px);
+}
+
+.cell.filled {
+  cursor: default;
+}
+
+.cell.winning {
+  background: #d1fadf;
+  border-color: #2fbf71;
+  color: #14824b;
+}

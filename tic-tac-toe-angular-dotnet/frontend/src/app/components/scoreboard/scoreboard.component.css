@@ -1,0 +1,29 @@
+.scoreboard-panel {
+  background: #fff;
+  border: 1px solid #e2e4ea;
+  border-radius: 10px;
+  padding: 12px 16px;
+  min-width: 180px;
+}
+
+.scoreboard-panel h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  font-size: 0.95rem;
+}
+
+.link-button {
+  margin-top: 10px;
+  border: none;
+  background: none;
+  color: #4457e6;
+  padding: 0;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}

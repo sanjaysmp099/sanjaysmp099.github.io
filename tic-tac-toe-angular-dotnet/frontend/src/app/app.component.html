@@ -1,0 +1,39 @@
+<div class="page">
+  <header>
+    <h1>Tic Tac Toe</h1>
+    <app-mode-selector
+      [selectedMode]="game?.mode ?? 'TwoPlayer'"
+      (modeSelected)="startNewGame($event)"
+    ></app-mode-selector>
+  </header>
+
+  <p *ngIf="errorMessage" class="error-banner">{{ errorMessage }}</p>
+
+  <div class="layout" *ngIf="game as g">
+    <div class="left-column">
+      <p class="status" [class.won]="g.status === 'Won'" [class.draw]="g.status === 'Draw'">
+        {{ statusMessage }}
+      </p>
+
+      <app-board
+        [board]="g.board"
+        [winningCells]="g.winningCells"
+        [disabled]="boardDisabled"
+        (cellClicked)="onCellClicked($event)"
+      ></app-board>
+
+      <div class="actions">
+        <button (click)="onUndo()" [disabled]="!g.canUndo || loading">Undo Last Move</button>
+        <button (click)="onResetGame()" [disabled]="loading">Reset Game</button>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <app-scoreboard
+        [scoreboard]="g.scoreboard"
+        (resetScoreboard)="onResetScoreboard()"
+      ></app-scoreboard>
+      <app-move-history [moves]="g.moveHistory"></app-move-history>
+    </div>
+  </div>
+</div>

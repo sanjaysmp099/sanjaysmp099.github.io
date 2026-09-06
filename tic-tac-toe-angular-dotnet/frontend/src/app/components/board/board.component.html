@@ -1,0 +1,13 @@
+<div class="board">
+  <button
+    *ngFor="let cell of board; let i = index; trackBy: trackByIndex"
+    class="cell"
+    [class.winning]="isWinningCell(i)"
+    [class.filled]="cell !== null"
+    [disabled]="disabled || cell !== null"
+    (click)="onCellClick(i)"
+    [attr.aria-label]="'Cell ' + (i + 1) + (cell ? ', occupied by ' + cell : ', empty')"
+  >
+    {{ cell }}
+  </button>
+</div>
